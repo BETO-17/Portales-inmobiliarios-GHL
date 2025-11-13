@@ -1,0 +1,117 @@
+```markdown
+# GHL ↔ Portal Inmobiliario Sync (PMV)
+
+**Sincronización bidireccional en tiempo real entre GoHighLevel y portales inmobiliarios (Adondevivir, Urbania, etc.)**
+
+[![Python](https://img.shields.io/badge/Python-3.11-blue)](https://python.org)
+[![Django](https://img.shields.io/badge/Django-5.2-green)](https://djangoproject.com)
+[![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
+
+---
+
+## 🚀 Funcionalidades
+
+| Check | Feature |
+|-------|--------|
+| Check | OAuth 2.0 con GHL (PKCE) |
+| Check | Token guardado en BD |
+| Check | Webhook con firma HMAC (SHA256) |
+| Check | Sync automático de propiedades |
+| Check | Publicación automática en portal |
+| Check | URL de retorno guardada en BD |
+| Check | API REST completa |
+
+---
+
+## 🏗️ Arquitectura
+
+```mermaid
+graph TD
+    A[Agente en GHL] -->|Crea/Edita| B(GHL)
+    B -->|Webhook| C[Django Backend]
+    C -->|Actualiza| D[(SQLite)]
+    C -->|Publica| E[Adondevivir]
+    E -->|URL| C
+    C -->|Guarda portal_url| D
+    F[Navegador] -->|/api/properties/ | C
+```
+
+---
+
+## ⚙️ Instalación (Paso a Paso)
+
+```bash
+# 1. Clona el repo
+git clone https://github.com/alejandro586/depas_ghl.git
+cd depas_ghl.git
+
+# 2. CREA el entorno virtual (venv)
+python -m venv venv
+
+# 3. ACTIVA el entorno
+# Linux / Mac:
+source venv/bin/activate
+# Windows:
+venv\Scripts\activate
+
+# 4. Instala dependencias
+pip install -r requirements.txt
+
+# 5. Configura variables
+cp .env.example .env
+# Abre .env y pega tus credenciales de GHL
+
+# 6. Migraciones
+python manage.py migrate
+
+# 7. Inicia el servidor
+python manage.py runserver
+
+---
+
+## 🔑 Configuración GHL Marketplace
+
+1. Crea app en [marketplace.gohighlevel.com](https://marketplace.gohighlevel.com)
+2. Scopes: `opportunities.readwrite opportunities.webhook`
+3. Redirect URI: `http://localhost:8000/api/auth/callback/`
+4. Webhook URL: `http://localhost:8000/api/webhook/ghl/`
+5. Secret: Copia a `WEBHOOK_SECRET`
+
+---
+
+## 🧪 Prueba Rápida
+
+1. `http://localhost:8000/api/auth/install/` → Autoriza
+2. Crea oportunidad en GHL → `Casa Prueba`
+3. En <5s → `http://localhost:8000/api/properties/` → `portal_url` generado
+
+---
+
+## 📡 Endpoints
+
+| Método | URL | Descripción |
+|-------|-----|------------|
+| GET | `/api/auth/install/` | Inicia OAuth |
+| GET | `/api/properties/` | Lista propiedades |
+| POST | `/api/publish/<ghl_id>/` | Publicar manual |
+
+---
+
+## 🔮 Próximos Pasos
+
+- [ ] Frontend React (Dashboard)
+- [ ] API real de Adondevivir
+- [ ] Pagos con Mercado Pago
+- [ ] Multi-portal (Urbania, etc.)
+
+---
+
+## 👨‍💻 Autor
+
+**Alejandro** – Desarrollador Full-Stack  
+13 de noviembre de 2025 – PMV en 6 horas
+
+---
+
+**¡Listo para SaaS, demo o venta!**
+```

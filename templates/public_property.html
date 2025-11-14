@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>{{ name }} - En Venta</title>
+  <style>
+    body { font-family: Arial; margin: 0; background: #f8f9fa; }
+    .container { max-width: 800px; margin: 40px auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+    .price { font-size: 2em; color: #28a745; font-weight: bold; }
+    .status { padding: 8px 16px; border-radius: 20px; color: white; font-size: 0.9em; }
+    .en-venta { background: #007bff; }
+    .vendido { background: #28a745; }
+    .img { width: 100%; height: 400px; background: #ddd; display: flex; align-items: center; justify-content: center; font-size: 1.5em; color: #666; margin: 20px 0; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>{{ name }}</h1>
+    <div class="img">Foto del inmueble (próximamente)</div>
+    <p class="price">S/ {{ price }}</p>
+    <p class="status {{ status_class }}">{{ status_display }}</p>
+    <p><strong>ID:</strong> {{ ghl_id }}</p>
+    <p><a href="/">← Volver al portal</a></p>
+  </div>
+</body>
+</html>
